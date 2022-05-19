@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AuthProvider from './context/auth';
-// import Routes from './routes';
+import Rotas from './routes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,7 +10,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <ToastContainer autoClose={3000} theme="colored" />
-        Teste
+        <Rotas />
       </BrowserRouter>
     </AuthProvider>
   );

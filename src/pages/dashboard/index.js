@@ -1,9 +1,13 @@
+import Container from "../../componets/container";
+import Sidebar from '../../componets/sidebar';
 
+export default function Dashboard() {
 
-export default function Dashboard(){
-
-
-    return(
-        <h1>Dashboard</h1>
+    return (
+        <>
+            <Container>
+                <Sidebar />
+            </Container>
+        </>
     );
 }

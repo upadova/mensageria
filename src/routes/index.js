@@ -3,7 +3,7 @@ import Dashboard from '../pages/dashboard';
 import Login from '../pages/login';
 
 function PrivateOutlet() {
-    const auth = false;
+    const auth = true;
     return auth ? <Outlet /> : <Navigate to="/login" />;
 }
 

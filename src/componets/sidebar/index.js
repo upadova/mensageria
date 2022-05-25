@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { BsHouse, BsSpeedometer2, BsTable } from "react-icons/bs";
 
-export default function Sidebar() {
+export default function Sidebar({children}) {
 
     return (
         <div className="row flex-nowrap">
@@ -20,7 +20,7 @@ export default function Sidebar() {
                             <Link to='#submenu1' data-bs-toggle="collapse" className="nav-link px-0 align-middle">
                                 <i><BsSpeedometer2 size={20} /></i> <span className="ms-1 d-none d-sm-inline">Dashboard</span>
                             </Link>
-                            <ul className="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <ul className="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li className="w-100">
                                     <Link to='/dashboard' className="nav-link px-0"><span className="d-none d-sm-inline">Item</span> 1 </Link>
                                 </li>
@@ -30,8 +30,8 @@ export default function Sidebar() {
                             </ul>
                         </li>
                         <li>
-                            <Link to="/dashboard" className="nav-link px-0 align-middle">
-                                <i><BsTable size={20} /></i> <span className="ms-1 d-none d-sm-inline">Orders</span>
+                            <Link to="/empresas" className="nav-link px-0 align-middle">
+                                <i><BsTable size={20} /></i> <span className="ms-1 d-none d-sm-inline">Empresas</span>
                             </Link>
                         </li>
                     </ul>
@@ -52,13 +52,7 @@ export default function Sidebar() {
                 </div>
             </div>
             <div className="col py-3">
-                <h3>Left Sidebar with Submenus</h3>
-                <p className="lead">
-                    An example 2-level sidebar with collasible menu items. The menu functions like an "accordion" where only a single
-                    menu is be open at a time. While the sidebar itself is not toggle-able, it does responsively shrink in width on smaller screens.</p>
-                <ul className="list-unstyled">
-                    <li><h5>Responsive</h5> shrinks in width, hides text labels and collapses to icons only on mobile</li>
-                </ul>
+                {children}
             </div>
         </div>
     );

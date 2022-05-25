@@ -7,6 +7,8 @@
 - yarn add react-icons
 - yarn add axios
 - yarn add bootstrap
+- yarn add react-data-table-component
+- yarn add styled-components
 - Importar o arquivo css no arquivo src/index.js ou App.js
 ```
 import 'bootstrap/dist/css/bootstrap.min.css';

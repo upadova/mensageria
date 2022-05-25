@@ -78,14 +78,14 @@ const [loading, setLoading] = useState(true);
                 <button
                     className="btn btn-sm btn-success me-2 text-nowrap"
                     onClick={(e) => { setValue(e.target.value) }}
-                    value={row.editar}
+                    value={row.id}
                 >
                     Editar
                 </button>
                 <button
                     className="btn btn-sm btn-danger text-nowrap"
                     onClick={(e) => { setValue(e.target.value) }}
-                    value={row.editar}
+                    value={row.id}
                 >
                     Excluir
                 </button>

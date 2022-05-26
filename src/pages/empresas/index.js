@@ -5,10 +5,11 @@ import api from '../../services/api';
 import Container from "../../componets/container";
 import Sidebar from '../../componets/sidebar';
 import Loader from "../../componets/loader";
+import EditarEmpresa from "../../componets/modal/editarEmpresa";
 
 export default function Empresas() {
 const [values, setValues] = useState();
-const [value, setValue] = useState();
+const [id, setId] = useState();
 const [loading, setLoading] = useState(true);
 
     const empresas = useCallback(()=>{
@@ -77,14 +78,16 @@ const [loading, setLoading] = useState(true);
             cell: (row) => <>
                 <button
                     className="btn btn-sm btn-success me-2 text-nowrap"
-                    onClick={(e) => { setValue(e.target.value) }}
+                    data-bs-toggle="modal"
+                    data-bs-target="#editar"
+                    onClick={(e) => { setId(e.target.value) }}
                     value={row.id}
                 >
                     Editar
                 </button>
                 <button
                     className="btn btn-sm btn-danger text-nowrap"
-                    onClick={(e) => { setValue(e.target.value) }}
+                    onClick={(e) => { setId(e.target.value) }}
                     value={row.id}
                 >
                     Excluir
@@ -113,6 +116,7 @@ const [loading, setLoading] = useState(true);
                 />
                 </Sidebar>
             </Container>
+            <EditarEmpresa id={id} />
         </>
     );
 }

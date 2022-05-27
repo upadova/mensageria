@@ -9,8 +9,20 @@ import EditarEmpresa from "../../componets/modal/editarEmpresa";
 
 export default function Empresas() {
 const [values, setValues] = useState();
-const [id, setId] = useState();
 const [loading, setLoading] = useState(true);
+const [dados, setDados] = useState();
+
+async function getDados(id) {
+    await api.get(`/empresa/${id}`)
+        .then((res) => {
+            console.log(res.data);
+            setDados(res.data);
+            setLoading(false);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+}
 
     const empresas = useCallback(()=>{
         async function getEmpresas() {
@@ -80,15 +92,13 @@ const [loading, setLoading] = useState(true);
                     className="btn btn-sm btn-success me-2 text-nowrap"
                     data-bs-toggle="modal"
                     data-bs-target="#editar"
-                    onClick={(e) => { setId(e.target.value) }}
-                    value={row.id}
+                    onClick={()=>getDados(row.id)}
                 >
                     Editar
                 </button>
                 <button
                     className="btn btn-sm btn-danger text-nowrap"
-                    onClick={(e) => { setId(e.target.value) }}
-                    value={row.id}
+                    onClick={()=>getDados(row.id)}
                 >
                     Excluir
                 </button>
@@ -116,7 +126,7 @@ const [loading, setLoading] = useState(true);
                 />
                 </Sidebar>
             </Container>
-            <EditarEmpresa id={id} />
+            <EditarEmpresa dados={dados} />
         </>
     );
 }

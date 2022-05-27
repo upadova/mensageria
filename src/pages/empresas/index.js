@@ -5,11 +5,24 @@ import api from '../../services/api';
 import Container from "../../componets/container";
 import Sidebar from '../../componets/sidebar';
 import Loader from "../../componets/loader";
+import EditarEmpresa from "../../componets/modal/editarEmpresa";
 
 export default function Empresas() {
 const [values, setValues] = useState();
-const [value, setValue] = useState();
 const [loading, setLoading] = useState(true);
+const [dados, setDados] = useState();
+
+async function getDados(id) {
+    await api.get(`/empresa/${id}`)
+        .then((res) => {
+            console.log(res.data);
+            setDados(res.data);
+            setLoading(false);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+}
 
     const empresas = useCallback(()=>{
         async function getEmpresas() {
@@ -77,15 +90,15 @@ const [loading, setLoading] = useState(true);
             cell: (row) => <>
                 <button
                     className="btn btn-sm btn-success me-2 text-nowrap"
-                    onClick={(e) => { setValue(e.target.value) }}
-                    value={row.editar}
+                    data-bs-toggle="modal"
+                    data-bs-target="#editar"
+                    onClick={()=>getDados(row.id)}
                 >
                     Editar
                 </button>
                 <button
                     className="btn btn-sm btn-danger text-nowrap"
-                    onClick={(e) => { setValue(e.target.value) }}
-                    value={row.editar}
+                    onClick={()=>getDados(row.id)}
                 >
                     Excluir
                 </button>
@@ -113,6 +126,7 @@ const [loading, setLoading] = useState(true);
                 />
                 </Sidebar>
             </Container>
+            <EditarEmpresa dados={dados} />
         </>
     );
 }

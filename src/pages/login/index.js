@@ -1,4 +1,4 @@
-
+import {Link} from 'react-router-dom';
 
 export default function Login() {
 
@@ -23,7 +23,8 @@ export default function Login() {
                                     <input className="form-check-input" type="checkbox" value="" id="form1Example3" />
                                     <label className="form-check-label" htmlFor="form1Example3"> Lembrar senha </label>
                                 </div> */}
-                                <button className="btn btn-primary btn-lg btn-block shadow" type="submit">Login</button>
+                                {/* <button className="btn btn-primary btn-lg btn-block shadow" type="submit">Login</button> */}
+                                <Link className='btn btn-primary btn-lg btn-block shadow' to="/dashboard">Login</Link>
                             </div>
                         </div>
                     </div>

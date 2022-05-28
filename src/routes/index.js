@@ -11,12 +11,12 @@ function PrivateOutlet() {
 export default function Rotas() {
     return (
         <Routes>
-            <Route path='/login' element={<Login />} />
-            <Route path="/dashboard" element={<PrivateOutlet />}>
-                <Route path="/dashboard" element={<Dashboard />} />
+            <Route exact path='/' element={<Login />} />
+            <Route exact path="/dashboard" element={<PrivateOutlet />}>
+                <Route exact path="/dashboard" element={<Dashboard />} />
             </Route>
-            <Route path="/empresas" element={<PrivateOutlet />}>
-                <Route path="/empresas" element={<Empresas />} />
+            <Route exact path="/empresas" element={<PrivateOutlet />}>
+                <Route exact path="/empresas" element={<Empresas />} />
             </Route>
         </Routes>
     );

@@ -6,6 +6,7 @@ import Container from "../../componets/container";
 import Sidebar from '../../componets/sidebar';
 import Loader from "../../componets/loader";
 import EditarEmpresa from "../../componets/modal/editarEmpresa";
+import ExcluirEmpresa from "../../componets/modal/excluirEmpresa";
 
 export default function Empresas() {
 const [values, setValues] = useState();
@@ -98,6 +99,8 @@ async function getDados(id) {
                 </button>
                 <button
                     className="btn btn-sm btn-danger text-nowrap"
+                    data-bs-toggle="modal"
+                    data-bs-target="#excluir"
                     onClick={()=>getDados(row.id)}
                 >
                     Excluir
@@ -127,6 +130,7 @@ async function getDados(id) {
                 </Sidebar>
             </Container>
             <EditarEmpresa dados={dados} />
+            <ExcluirEmpresa dados={dados} />
         </>
     );
 }

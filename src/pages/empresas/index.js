@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
+import { useContext } from "react";
+import { AuthContext } from '../../context/auth';
 import { toast } from "react-toastify";
 import DataTable from "react-data-table-component";
 import api from '../../services/api';
@@ -9,25 +11,40 @@ import EditarEmpresa from "../../componets/modal/editarEmpresa";
 import ExcluirEmpresa from "../../componets/modal/excluirEmpresa";
 
 export default function Empresas() {
-const [values, setValues] = useState();
-const [loading, setLoading] = useState(true);
-const [dados, setDados] = useState();
+    const { login } = useContext(AuthContext);
+    const [values, setValues] = useState();
+    const [loading, setLoading] = useState(true);
+    const [dados, setDados] = useState();
 
-async function getDados(id) {
-    await api.get(`/empresa/${id}`)
-        .then((res) => {
-            console.log(res.data);
-            setDados(res.data);
-            setLoading(false);
+    async function getDados(id) {
+        let basic = 'Basic ' + btoa(login.user + ':' + login.senha);
+        await api.get(`/empresa/${id}`,{
+            headers: {'Authorization': + basic}
         })
-        .catch((err) => {
-            console.log(err);
-        })
-}
+            .then((res) => {
+                console.log(res.data);
+                setDados(res.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
 
-    const empresas = useCallback(()=>{
+    const empresas = useCallback(() => {
         async function getEmpresas() {
-            await api.get("/empresa/all")
+            // let basic = 'Basic ' + btoa(login.user + ':' + login.senha);
+            // console.log(basic);
+            // await api.get("/empresa/all",{
+            //     headers: {'Authorization': basic}
+            // })
+            console.log(`login: ${login.user} | Senha: ${login.senha}`);
+            await api.get("/empresa/all",{
+                auth: {
+                    username: login.user,
+                    password: login.senha
+                  }
+            })
                 .then((res) => {
                     let data = res.data.map((empresa) => ({
                         id: empresa.id,
@@ -35,7 +52,7 @@ async function getDados(id) {
                         balance: empresa.balance,
                         email: empresa.email
                     }));
-                    console.log(data);
+                    console.log(res.data);
                     setValues(data);
                     setLoading(false);
                 })
@@ -46,11 +63,11 @@ async function getDados(id) {
         }
 
         getEmpresas();
-    },[]);
+    }, [login]);
 
     useEffect(() => {
         empresas();
-    },[empresas]);
+    }, [empresas]);
 
 
     const paginationComponentOptions = {
@@ -83,7 +100,7 @@ async function getDados(id) {
             selector: (row) => row.email,
             sortable: true,
             reorder: true,
-            hide:'md',
+            hide: 'md',
         },
         {
             id: 4,
@@ -93,7 +110,7 @@ async function getDados(id) {
                     className="btn btn-sm btn-success me-2 text-nowrap"
                     data-bs-toggle="modal"
                     data-bs-target="#editar"
-                    onClick={()=>getDados(row.id)}
+                    onClick={() => getDados(row.id)}
                 >
                     Editar
                 </button>
@@ -101,7 +118,7 @@ async function getDados(id) {
                     className="btn btn-sm btn-danger text-nowrap"
                     data-bs-toggle="modal"
                     data-bs-target="#excluir"
-                    onClick={()=>getDados(row.id)}
+                    onClick={() => getDados(row.id)}
                 >
                     Excluir
                 </button>
@@ -117,16 +134,16 @@ async function getDados(id) {
             <Container>
                 <Sidebar>
                     <DataTable
-                    title='Empresas'
-                    columns={columms}
-                    data={values}
-                    progressPending={loading}
-                    highlightOnHover
-                    pointerOnHover
-                    paginationComponentOptions={paginationComponentOptions}
-                    progressComponent={<Loader />}
-                    pagination
-                />
+                        title='Empresas'
+                        columns={columms}
+                        data={values}
+                        progressPending={loading}
+                        highlightOnHover
+                        pointerOnHover
+                        paginationComponentOptions={paginationComponentOptions}
+                        progressComponent={<Loader />}
+                        pagination
+                    />
                 </Sidebar>
             </Container>
             <EditarEmpresa dados={dados} />

@@ -1,35 +1,74 @@
-import {Link} from 'react-router-dom';
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import { AuthContext } from '../../context/auth';
+import { Navigate } from "react-router-dom";
+import Loader from '../../componets/loader';
 
 export default function Login() {
+    const [user, setUser] = useState('');
+    const [senha, setSenha] = useState('');
+    const { signIn, loadingAuth, signed } = useContext(AuthContext);
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (user !== '' && senha !== '') {
+            signIn(user, senha);
+            setUser('');
+            setSenha('');   
+        } else {
+            toast.error('Os campos usuário e senha não pode estar vazios.');
+        }
+    }
 
 
-    return (
-        <section className="vh-100" style={{'backgroundColor':'#508bfc'}} >
-            <div className="container py-5 h-100">
-                <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div className="card shadow" style={{'borderRadius':'1rem'}} >
-                            <div className="card-body p-5 text-center">
-                                <h3 className="mb-5">Sign in</h3>
-                                <div className="form-outline mb-4">
-                                    <input type="email" id="typeEmailX-2" className="form-control form-control-lg" />
-                                    <label className="form-label" htmlFor="typeEmailX-2">Email</label>
+    if(signed ){
+        return <Navigate to="/dashboard" />
+    }else{
+        return (
+            <section className="vh-100" style={{ 'backgroundColor': '#508bfc' }} >
+                <div className="container py-5 h-100">
+                    <div className="row d-flex justify-content-center align-items-center h-100">
+                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div className="card shadow" style={{ 'borderRadius': '1rem' }} >
+                                <div className="card-body p-5 text-center">
+                                    <h3 className="mb-5">Sign in</h3>
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="form-outline mb-4">
+                                            <input
+                                                type="text"
+                                                id="typeUserX-2"
+                                                className="form-control form-control-lg"
+                                                autoFocus
+                                                required
+                                                value={user}
+                                                onChange={(e) => { setUser(e.target.value) }}
+                                            />
+                                            <label className="form-label" htmlFor="typeUserX-2">Login</label>
+                                        </div>
+                                        <div className="form-outline mb-4">
+                                            <input
+                                                type="password"
+                                                id="typePasswordX-2"
+                                                className="form-control form-control-lg"
+                                                required
+                                                value={senha}
+                                                onChange={(e) => { setSenha(e.target.value) }}
+                                            />
+                                            <label className="form-label" htmlFor="typePasswordX-2">Senha</label>
+                                        </div>
+                                        {
+                                            loadingAuth ?
+                                                <button className="btn btn-primary btn-lg btn-block shadow" type="submit"><Loader /></button>
+                                                :
+                                                <button className="btn btn-primary btn-lg btn-block shadow" type="submit">Login</button>
+                                        }
+                                    </form>
                                 </div>
-                                <div className="form-outline mb-4">
-                                    <input type="password" id="typePasswordX-2" className="form-control form-control-lg" />
-                                    <label className="form-label" htmlFor="typePasswordX-2">Senha</label>
-                                </div>
-                                {/* <div className="form-check d-flex justify-content-start mb-4">
-                                    <input className="form-check-input" type="checkbox" value="" id="form1Example3" />
-                                    <label className="form-check-label" htmlFor="form1Example3"> Lembrar senha </label>
-                                </div> */}
-                                {/* <button className="btn btn-primary btn-lg btn-block shadow" type="submit">Login</button> */}
-                                <Link className='btn btn-primary btn-lg btn-block shadow' to="/dashboard">Login</Link>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    );
+            </section>
+        );
+    }
 }

@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { BsHouse, BsSpeedometer2, BsTable } from "react-icons/bs";
+import { useContext } from "react";
+import { AuthContext } from '../../context/auth';
+import Loader from "../loader";
 
 export default function Sidebar({children}) {
-
+    const { login, signOut } = useContext(AuthContext);
     return (
         <div className="row flex-nowrap">
             <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
@@ -39,14 +42,18 @@ export default function Sidebar({children}) {
                     <div className="dropdown pb-4">
                         <Link to="#" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" className="rounded-circle" />
-                            <span className="d-none d-sm-inline mx-1">User</span>
+                            {login ?
+                                <span className="d-none d-sm-inline mx-1">{login.user}</span>
+                                :
+                                <span className="d-none d-sm-inline mx-1"><Loader /></span>
+                            }
                         </Link>
                         <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                             <li><Link to="#" className="dropdown-item">Configurações</Link></li>
                             <li>
                                 <hr className="dropdown-divider" />
                             </li>
-                            <li><Link to="#" className="dropdown-item">Sair</Link></li>
+                            <li><button className="dropdown-item" onClick={()=>{signOut()}}>Sair</button></li>
                         </ul>
                     </div>
                 </div>

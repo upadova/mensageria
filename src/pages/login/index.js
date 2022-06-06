@@ -58,7 +58,7 @@ export default function Login() {
                                         </div>
                                         {
                                             loadingAuth ?
-                                                <button className="btn btn-primary btn-lg btn-block shadow" type="submit"><Loader /></button>
+                                                <button className="btn btn-primary btn-lg btn-block shadow" type="submit" disabled ><Loader /></button>
                                                 :
                                                 <button className="btn btn-primary btn-lg btn-block shadow" type="submit">Login</button>
                                         }

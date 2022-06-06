@@ -9,6 +9,7 @@ import Sidebar from '../../componets/sidebar';
 import Loader from "../../componets/loader";
 import EditarEmpresa from "../../componets/modal/editarEmpresa";
 import ExcluirEmpresa from "../../componets/modal/excluirEmpresa";
+import CadastrarEmpresa from "../../componets/modal/cadastrarEmpresa";
 
 export default function Empresas() {
     const { login } = useContext(AuthContext);
@@ -18,8 +19,8 @@ export default function Empresas() {
 
     async function getDados(id) {
         let basic = 'Basic ' + btoa(login.user + ':' + login.senha);
-        await api.get(`/empresa/${id}`,{
-            headers: {'Authorization': + basic}
+        await api.get(`/empresa/${id}`, {
+            headers: { 'Authorization': + basic }
         })
             .then((res) => {
                 console.log(res.data);
@@ -39,11 +40,11 @@ export default function Empresas() {
             //     headers: {'Authorization': basic}
             // })
             console.log(`login: ${login.user} | Senha: ${login.senha}`);
-            await api.get("/empresa/all",{
+            await api.get("/empresa/all", {
                 auth: {
                     username: login.user,
                     password: login.senha
-                  }
+                }
             })
                 .then((res) => {
                     let data = res.data.map((empresa) => ({
@@ -133,8 +134,11 @@ export default function Empresas() {
         <>
             <Container>
                 <Sidebar>
+                    <div className="m-2 d-flex justify-content-between">
+                        <h2 className="ms-2">Empresas</h2>
+                        <button className="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#cadastrar">Cadastrar</button>
+                    </div>
                     <DataTable
-                        title='Empresas'
                         columns={columms}
                         data={values}
                         progressPending={loading}
@@ -148,6 +152,7 @@ export default function Empresas() {
             </Container>
             <EditarEmpresa dados={dados} />
             <ExcluirEmpresa dados={dados} />
+            <CadastrarEmpresa />
         </>
     );
 }

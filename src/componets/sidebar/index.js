@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BsHouse, BsSpeedometer2, BsTable } from "react-icons/bs";
+import { BsHouse, BsSpeedometer2, BsTable, BsPerson } from "react-icons/bs";
 import { useContext } from "react";
 import { AuthContext } from '../../context/auth';
 import Loader from "../loader";
@@ -35,6 +35,11 @@ export default function Sidebar({children}) {
                         <li>
                             <Link to="/empresas" className="nav-link px-0 align-middle">
                                 <i><BsTable size={20} /></i> <span className="ms-1 d-none d-sm-inline">Empresas</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/funcionarios" className="nav-link px-0 align-middle">
+                                <i><BsPerson size={20} /></i> <span className="ms-1 d-none d-sm-inline">Funcionarios</span>
                             </Link>
                         </li>
                     </ul>

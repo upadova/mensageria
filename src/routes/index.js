@@ -4,6 +4,7 @@ import { AuthContext } from '../context/auth';
 import Dashboard from '../pages/dashboard';
 import Login from '../pages/login';
 import Empresas from '../pages/empresas';
+import Funcionarios from '../pages/funcionarios';
 
 export default function Rotas() {
     const { signed } = useContext(AuthContext);
@@ -17,6 +18,7 @@ export default function Rotas() {
             <Route element={<PrivateOutlet />}>
                 <Route exact path="/dashboard" element={<Dashboard />} />
                 <Route exact path="/empresas" element={<Empresas />} />
+                <Route exact path="/funcionarios" element={<Funcionarios />} />
             </Route>
         </Routes>
     );

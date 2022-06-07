@@ -152,7 +152,7 @@ export default function Empresas() {
             </Container>
             <EditarEmpresa dados={dados} />
             <ExcluirEmpresa dados={dados} />
-            <CadastrarEmpresa />
+            <CadastrarEmpresa empresas={empresas} />
         </>
     );
 }

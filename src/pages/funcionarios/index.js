@@ -7,6 +7,8 @@ import api from '../../services/api';
 import Container from "../../componets/container";
 import Sidebar from '../../componets/sidebar';
 import Loader from "../../componets/loader";
+import EditarFuncionario from "../../componets/modal/editarFuncionario";
+import ExcluirEmpresa from "../../componets/modal/funcionario/excluirFuncionario";
 
 export default function Funcionarios() {
     const { login } = useContext(AuthContext);
@@ -16,7 +18,7 @@ export default function Funcionarios() {
 
     async function getDados(id) {
         let basic = 'Basic ' + btoa(login.user + ':' + login.senha);
-        await api.get(`/empresa/${id}`, {
+        await api.get(`/funcionario/${id}`, {
             headers: { 'Authorization': + basic }
         })
             .then((res) => {
@@ -148,9 +150,9 @@ export default function Funcionarios() {
                     />
                 </Sidebar>
             </Container>
-            {/* <EditarEmpresa dados={dados} />
+            <EditarFuncionario dados={dados} />
             <ExcluirEmpresa dados={dados} />
-            <CadastrarEmpresa empresas={funcionarios} /> */}
+            {/* <CadastrarEmpresa empresas={funcionarios} /> */}
         </>
     );
 }

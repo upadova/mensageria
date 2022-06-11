@@ -7,9 +7,9 @@ import api from '../../services/api';
 import Container from "../../componets/container";
 import Sidebar from '../../componets/sidebar';
 import Loader from "../../componets/loader";
-import EditarEmpresa from "../../componets/modal/editarEmpresa";
-import ExcluirEmpresa from "../../componets/modal/excluirEmpresa";
-import CadastrarEmpresa from "../../componets/modal/cadastrarEmpresa";
+import EditarEmpresa from "../../componets/modal/empresa/editarEmpresa";
+import ExcluirEmpresa from "../../componets/modal/empresa/excluirEmpresa";
+import CadastrarEmpresa from "../../componets/modal/empresa/cadastrarEmpresa";
 
 export default function Empresas() {
     const { login } = useContext(AuthContext);

@@ -1,6 +1,6 @@
 // import { useState, useEffect } from "react";
 // import { toast } from "react-toastify";
-import Loader from "../../loader";
+import Loader from "../../../loader";
 // import api from "../../../services/api";
 
 export default function EditarFuncionario({ dados }) {

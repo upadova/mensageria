@@ -7,8 +7,9 @@ import api from '../../services/api';
 import Container from "../../componets/container";
 import Sidebar from '../../componets/sidebar';
 import Loader from "../../componets/loader";
-import EditarFuncionario from "../../componets/modal/editarFuncionario";
+import EditarFuncionario from "../../componets/modal/funcionario/editarFuncionario";
 import ExcluirEmpresa from "../../componets/modal/funcionario/excluirFuncionario";
+import CadastrarFuncionario from "../../componets/modal/funcionario/cadastrarFuncionario";
 
 export default function Funcionarios() {
     const { login } = useContext(AuthContext);
@@ -152,7 +153,7 @@ export default function Funcionarios() {
             </Container>
             <EditarFuncionario dados={dados} />
             <ExcluirEmpresa dados={dados} />
-            {/* <CadastrarEmpresa empresas={funcionarios} /> */}
+            <CadastrarFuncionario funcionarios={funcionarios} />
         </>
     );
 }

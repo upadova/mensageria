@@ -1,4 +1,5 @@
 import { useState, createContext, useEffect } from 'react';
+import api from '../services/api';
 
 export const AuthContext = createContext({});
 
@@ -19,12 +20,28 @@ function AuthProvider({ children }) {
 
     async function signIn(login, senha) {
         setLoadingAuth(true);
-        let data = {
-            user : login,
-            senha : senha
-        }
-        setLogin(data);
-        storageUser(data);
+        await api.post('/oauth/token',
+            {
+                username: login,
+                password: senha
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': 'http://localhost:3000',
+                    'Access-Control-Allow-Credentials': 'true'
+                }
+            }
+        )
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        // setLogin(data);
+        // storageUser(data);
         setLoadingAuth(false);
     }
 
